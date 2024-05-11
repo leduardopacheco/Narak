@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "687289417878",
+    "project_id": "obras-acessiveis-e2ccb",
+    "storage_bucket": "obras-acessiveis-e2ccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687289417878:android:faa116ace5d732368002b7",
+        "android_client_info": {
+          "package_name": "com.example.obrasacessiveis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDF1ffl7Qgs8o7QS-XeuMBlELmVdPFKrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
