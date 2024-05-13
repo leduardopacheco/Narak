@@ -18,14 +18,14 @@
 
             <ImageButton
                 android:id="@+id/voltarButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:layout_alignParentStart="true"
-                android:layout_margin="16dp"
+                android:layout_margin="10dp"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/arrow"
+                android:src="@drawable/volta"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

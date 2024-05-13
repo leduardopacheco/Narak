@@ -14,10 +14,10 @@
         android:theme="@style/Theme.ObrasAcessiveis"
         tools:targetApi="31" >
         <activity
-            android:name=".EscanearObrasAdminActivity"
+            android:name=".ListarObrasAdminActivity"
             android:exported="false" />
         <activity
-            android:name=".EscanearObrasUsuarioActivity"
+            android:name=".ListarObrasUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".FazerCadastroActivity"
@@ -29,13 +29,13 @@
             android:name=".ObraCadastradaActivity"
             android:exported="false" />
         <activity
-            android:name=".ObrasEscaneadasAdminActivity"
+            android:name=".ObrasInfoAdminActivity"
             android:exported="false" />
         <activity
             android:name=".AtualizarObrasActivity"
             android:exported="false" />
         <activity
-            android:name=".ObrasEscaneadasUsuarioActivity"
+            android:name=".ObrasInfoUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".SairActivity"

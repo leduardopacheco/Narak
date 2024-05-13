@@ -8,8 +8,6 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class AdicionarObrasActivity : Activity() {
@@ -21,8 +19,8 @@ class AdicionarObrasActivity : Activity() {
         val cancel = findViewById<ImageButton>(R.id.cancelButton)
         val titulo = findViewById<EditText>(R.id.titleTextView)
         val descricao = findViewById<EditText>(R.id.textEditText)
-        val ano = findViewById<EditText>(R.id.authorEditText)
-        val autor = findViewById<EditText>(R.id.yearEditText)
+        val autor = findViewById<EditText>(R.id.authorEditText)
+        val ano = findViewById<EditText>(R.id.yearEditText)
         var id: String
         ok.setOnClickListener() {
             FirebaseFirestore.getInstance().collection("Obras").add(mapOf(
@@ -46,7 +44,7 @@ class AdicionarObrasActivity : Activity() {
         startActivity(telaAdicionar)
     }
     private fun VoltarParaEscanearObra() {
-        val intent = Intent(this, EscanearObrasAdminActivity::class.java)
+        val intent = Intent(this, ListarObrasAdminActivity::class.java)
         startActivity(intent)
     }
 }

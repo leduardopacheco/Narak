@@ -107,7 +107,7 @@
         android:focusable="true"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Entrar como usuário"
+        android:text="Entrar como visitante"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold" />

@@ -1,6 +1,5 @@
 package com.example.obrasacessiveis
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +17,7 @@ class ObraCadastradaActivity : Activity() {
     }
 
     private fun TrocarParaEscanearObra() {
-        val outraTela = Intent(this, EscanearObrasAdminActivity::class.java)
+        val outraTela = Intent(this, ListarObrasAdminActivity::class.java)
         startActivity(outraTela)
     }
 }

@@ -4,15 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 
-class ObrasEscaneadasUsuarioActivity : Activity() {
+class ObrasInfoUsuarioActivity : Activity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_obras_escaneadas_usuario)
+        setContentView(R.layout.activity_obras_info_usuario)
         val voltar = findViewById<ImageButton>(R.id.voltarButton)
 
         val titulo = findViewById<TextView>(R.id.titleTextView)
@@ -36,7 +35,7 @@ class ObrasEscaneadasUsuarioActivity : Activity() {
         }
     }
     private fun VoltarParaEscanearObra() {
-        val telaAdicionar = Intent(this, EscanearObrasUsuarioActivity::class.java)
+        val telaAdicionar = Intent(this, ListarObrasUsuarioActivity::class.java)
         startActivity(telaAdicionar)
     }
 }

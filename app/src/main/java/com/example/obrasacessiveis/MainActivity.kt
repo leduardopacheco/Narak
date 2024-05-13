@@ -29,7 +29,6 @@ class MainActivity : Activity() {
             TrocarDeTela2()
         }
 
-        Firebase.firestore.collection("Obras").add(mapOf("nome" to "kasnd"))
     }
     private fun TrocarDeTela() {
         val outraTela = Intent(this, SessionAdmin::class.java)

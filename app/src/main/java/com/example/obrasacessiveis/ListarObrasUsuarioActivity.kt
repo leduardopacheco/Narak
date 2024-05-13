@@ -9,38 +9,25 @@ import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
-class EscanearObrasAdminActivity : Activity() {
+class ListarObrasUsuarioActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_escanear_obras_admin)
+        setContentView(R.layout.activity_listar_obras_usuario)
 
-        val addButton = findViewById<ImageButton>(R.id.addButton)
-        //teste
-        val settings = findViewById<ImageButton>(R.id.settingsButton)
         val buscar = findViewById<ImageButton>(R.id.checkButton)
         val titulo = findViewById<EditText>(R.id.searchEditText)
-
-
-        //teste
-        settings.setOnClickListener(){
-            trocar()
-        }
-
-        addButton.setOnClickListener(){
-            TrocarParaAdicionarObra()
-        }
+        val settings = findViewById<ImageButton>(R.id.settingsButton)
 
         buscar.setOnClickListener() {
             buscarObraPorTitulo(titulo.text.toString())
         }
+
+        settings.setOnClickListener(){
+            trocar()
+        }
     }
-    private fun TrocarParaAdicionarObra() {
-        val telaAdicionar = Intent(this, AdicionarObrasActivity::class.java)
-        startActivity(telaAdicionar)
-    }
-    //teste
     private fun trocar() {
-        val telaAdicionar = Intent(this, SairActivity::class.java)
+        val telaAdicionar = Intent(this, SairActivityUser::class.java)
         startActivity(telaAdicionar)
     }
     fun buscarObraPorTitulo(tituloBuscado: String) {
@@ -64,7 +51,7 @@ class EscanearObrasAdminActivity : Activity() {
 
                         Log.d("Buscar", "Obra encontrada - Título: $titulo, Descrição: $descricao, Autor: $autor, Ano: $ano")
 
-                        val intent = Intent(this, ObrasEscaneadasAdminActivity::class.java).apply {
+                        val intent = Intent(this, ObrasInfoUsuarioActivity::class.java).apply {
                             putExtra("titulo", tituloBuscado)
                             putExtra("descricao", descricao)
                             putExtra("autor", autor)
@@ -79,4 +66,3 @@ class EscanearObrasAdminActivity : Activity() {
             }
     }
 }
-

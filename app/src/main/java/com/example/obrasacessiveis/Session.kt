@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
 
 class Session : Activity() {
     @SuppressLint("MissingInflatedId")
@@ -60,7 +59,7 @@ class Session : Activity() {
     }
 
     private fun MudarTelaSessao() {
-        val telaAdicionar = Intent(this, EscanearObrasUsuarioActivity::class.java)
+        val telaAdicionar = Intent(this, ListarObrasUsuarioActivity::class.java)
         startActivity(telaAdicionar)
     }
 //    private fun homeTela() {

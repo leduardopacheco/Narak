@@ -8,8 +8,6 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class AtualizarObrasActivity : Activity() {
@@ -41,11 +39,11 @@ class AtualizarObrasActivity : Activity() {
         }
     }
     private fun DeletarParaEscanearObra() {
-        val intent = Intent(this, EscanearObrasAdminActivity::class.java)
+        val intent = Intent(this, ListarObrasAdminActivity::class.java)
         startActivity(intent)
     }
     private fun VoltarParaEscanearObra() {
-        val intent = Intent(this, ObrasEscaneadasAdminActivity::class.java)
+        val intent = Intent(this, ObrasInfoAdminActivity::class.java)
         startActivity(intent)
     }
 }

@@ -54,7 +54,7 @@
         android:layout_below="@id/textEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="autor" />
+        android:hint="Autor" />
 
     <EditText
         android:id="@+id/yearEditText"
@@ -63,7 +63,7 @@
         android:layout_below="@id/authorEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="ano" />
+        android:hint="Ano" />
 
     <ImageButton
         android:id="@+id/cancelButton"

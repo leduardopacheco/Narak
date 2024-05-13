@@ -41,7 +41,7 @@ class SairActivity : Activity() {
         startActivity(telaAdicionar)
     }
     private fun VoltarParaEscanearObra() {
-        val telaAdicionar = Intent(this, EscanearObrasAdminActivity::class.java)
+        val telaAdicionar = Intent(this, ListarObrasAdminActivity::class.java)
         startActivity(telaAdicionar)
     }
 

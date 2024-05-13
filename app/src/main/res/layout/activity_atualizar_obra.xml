@@ -28,7 +28,7 @@
         android:adjustViewBounds="true"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="fitCenter"
-        android:src="@drawable/arrow" />
+        android:src="@drawable/volta" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -69,7 +69,7 @@
         android:layout_below="@id/textEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="autor" />
+        android:hint="Autor" />
 
     <EditText
         android:id="@+id/yearEditText"
@@ -78,7 +78,7 @@
         android:layout_below="@id/authorEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="ano" />
+        android:hint="Ano" />
 
     <ImageButton
         android:id="@+id/trashButton"
