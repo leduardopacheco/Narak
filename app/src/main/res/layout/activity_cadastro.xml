@@ -15,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="ObrasApp"
+        android:text="@string/app_name"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
-        android:text="Cadastro"
+        android:text="@string/registration"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/registrationLabel"
         android:layout_marginTop="30dp"
-        android:text="Nome"
+        android:text="@string/name"
         android:textStyle="bold" />
 
     <EditText
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nameEditText"
         android:layout_marginTop="20dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textStyle="bold" />
 
     <EditText
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/emailEditText"
         android:layout_marginTop="20dp"
-        android:text="Senha"
+        android:text="@string/password"
         android:textStyle="bold" />
 
     <EditText
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordEditText"
         android:layout_marginTop="20dp"
-        android:text="Confirmar senha"
+        android:text="@string/confirm_password"
         android:textStyle="bold" />
 
     <EditText
@@ -106,6 +106,6 @@
         android:layout_below="@id/confirmPasswordEditText"
         android:layout_marginTop="20dp"
         android:background="#909090"
-        android:text="Cadastrar" />
+        android:text="@string/register" />
 
 </RelativeLayout>

@@ -23,23 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="Configurações"
+        android:text="@string/settings_title"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-
-    <Spinner
-        android:id="@+id/languageSpinner"
-        android:layout_width="131dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/titleTextView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="560dp"
-        android:entries="@array/language_options" />
 
 </RelativeLayout>

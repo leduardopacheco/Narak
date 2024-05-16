@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ObrasApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="login_as_guest">Login as Guest</string>
+    <string name="registration">Registration</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="search">Search</string>
+    <string name="enter_text">Enter text</string>
+    <string name="session">Session *</string>
+    <string name="title_hint">Title of the work</string>
+    <string name="description_hint">Description of the work</string>
+    <string name="author_hint">Author</string>
+    <string name="year_hint">Year</string>
+    <string name="success_message">Registered work successfully!</string>
+    <string name="description_label">Description:</string>
+    <string name="settings_title">Settings</string>
+    <string name="exit">Exit</string>
+    <string name="visitor">Visitor</string>
+    <string name="administrator">Administrator</string>
+    <string name="choose_session">Choose desired session</string>
+    <string name="session_1">Session 1</string>
+    <string name="session_2">Session 2</string>
+    <string name="session_3">Session 3</string>
+    <string name="session_4">Session 4</string>
+    <string name="session_5">Session 5</string>
+</resources>

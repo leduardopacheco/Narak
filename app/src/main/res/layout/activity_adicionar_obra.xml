@@ -12,7 +12,7 @@
         android:layout_marginTop="24dp"
         android:background="@android:drawable/edit_text"
         android:gravity="center_horizontal"
-        android:hint="Título da obra"
+        android:hint="@string/title_hint"
         android:textSize="20sp" />
 
     <ImageView
@@ -45,7 +45,7 @@
         android:layout_below="@id/imageView"
         android:layout_marginTop="16dp"
         android:background="@android:drawable/edit_text"
-        android:hint="Descrição da obra" />
+        android:hint="@string/description_hint" />
 
     <EditText
         android:id="@+id/authorEditText"
@@ -54,7 +54,7 @@
         android:layout_below="@id/textEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="Autor" />
+        android:hint="@string/author_hint" />
 
     <EditText
         android:id="@+id/yearEditText"
@@ -63,7 +63,7 @@
         android:layout_below="@id/authorEditText"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/edit_text"
-        android:hint="Ano" />
+        android:hint="@string/year_hint" />
 
     <ImageButton
         android:id="@+id/cancelButton"

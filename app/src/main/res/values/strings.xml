@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">ObrasApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="create_account">Cadastre-se</string>
+    <string name="login_as_guest">Entrar como visitante</string>
+    <string name="registration">Cadastro</string>
+    <string name="name">Nome</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="register">Cadastrar</string>
+    <string name="search">Pesquisar</string>
+    <string name="enter_text">Digite aqui</string>
+    <string name="session">Sessão *</string>
+    <string name="title_hint">Título da obra</string>
+    <string name="description_hint">Descrição da obra</string>
+    <string name="author_hint">Autor</string>
+    <string name="year_hint">Ano</string>
+    <string name="success_message">Obra cadastrada com sucesso!</string>
+    <string name="description_label">Descrição:</string>
+    <string name="settings_title">Configurações</string>
+    <string name="exit">Sair</string>
+    <string name="visitor">Visitante</string>
+    <string name="administrator">Administrador</string>
+    <string name="choose_session">Escolha a sessão desejada</string>
+    <string name="session_1">Sessão 1</string>
+    <string name="session_2">Sessão 2</string>
+    <string name="session_3">Sessão 3</string>
+    <string name="session_4">Sessão 4</string>
+    <string name="session_5">Sessão 5</string>
 </resources>

@@ -53,19 +53,20 @@ class ListarObrasAdminActivity : Activity() {
                     Log.d("Buscar", "Nenhum documento encontrado com o título: $tituloBuscado")
                 } else {
                     for (document in documents) {
+                        val id = document.id // Obtem o ID único do documento
                         val titulo = document.getString("titulo") ?: "Título não encontrado"
                         val descricao = document.getString("descricao") ?: "Descrição não encontrada"
                         val autor = document.getString("autor") ?: "Autor não encontrado"
                         val ano = document.getString("ano") ?: "Ano não encontrado"
-
-                        if(titulo.isEmpty()) {
+                        if (titulo.isEmpty()) {
                             Toast.makeText(this, "A obra não foi encontrada", Toast.LENGTH_SHORT).show()
                         }
 
                         Log.d("Buscar", "Obra encontrada - Título: $titulo, Descrição: $descricao, Autor: $autor, Ano: $ano")
 
                         val intent = Intent(this, ObrasInfoAdminActivity::class.java).apply {
-                            putExtra("titulo", tituloBuscado)
+                            putExtra("id", id) // Passa o ID da obra para a próxima atividade
+                            putExtra("titulo", titulo)
                             putExtra("descricao", descricao)
                             putExtra("autor", autor)
                             putExtra("ano", ano)
@@ -78,5 +79,6 @@ class ListarObrasAdminActivity : Activity() {
                 Log.w("Buscar", "Erro ao buscar documentos: ", exception)
             }
     }
+
 }
 
