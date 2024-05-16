@@ -28,24 +28,23 @@ class Session : Activity() {
         }
 
         sessao1.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(1)
         }
 
         sessao2.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(2)
         }
 
         sessao3.setOnClickListener {
-            MudarTelaSessao()
-
+            MudarTelaSessao(3)
         }
 
         sessao4.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(4)
         }
 
         sessao5.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(5)
         }
 
 //        home.setOnClickListener(){
@@ -58,11 +57,13 @@ class Session : Activity() {
 
     }
 
-    private fun MudarTelaSessao() {
-        val telaAdicionar = Intent(this, ListarObrasUsuarioActivity::class.java)
+    private fun MudarTelaSessao(sessao: Int) {
+        val telaAdicionar = Intent(this, ListarObrasAdminActivity::class.java)
+        telaAdicionar.putExtra("sessao", sessao)
         startActivity(telaAdicionar)
     }
-//    private fun homeTela() {
+
+    //    private fun homeTela() {
 //        val telaAdicionar = Intent(this, MainActivity::class.java)
 //        startActivity(telaAdicionar)
 //    }

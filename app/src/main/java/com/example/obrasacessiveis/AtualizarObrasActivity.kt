@@ -1,5 +1,6 @@
 package com.example.obrasacessiveis
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -23,6 +24,7 @@ class AtualizarObrasActivity : Activity() {
     private var imagemUrlAtual: String? = null
     private lateinit var id:String
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_atualizar_obra)

@@ -62,7 +62,7 @@ class ObrasInfoAdminActivity : Activity() {
 
         editButton.setOnClickListener {
             val intent = Intent(this, AtualizarObrasActivity::class.java)
-            intent.putExtra("id", id) // Passa o ID da obra para a próxima atividade
+            intent.putExtra("id", id)
             intent.putExtra("obra_titulo", tituloBuscado)
             intent.putExtra("obra_descricao", descricaoBuscada)
             intent.putExtra("obra_autor", autorBuscado)

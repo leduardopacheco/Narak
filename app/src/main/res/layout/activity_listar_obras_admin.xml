@@ -72,6 +72,7 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="300dp"

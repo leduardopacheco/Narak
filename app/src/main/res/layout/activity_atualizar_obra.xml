@@ -22,7 +22,7 @@
         android:textSize="20sp" />
 
     <ImageButton
-        android:id="@+id/backButton"
+        android:id="@+id/voltarButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"

@@ -27,25 +27,25 @@ class SessionAdmin : Activity() {
         }
 
         sessao1.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(1)
         }
 
         sessao2.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(2)
         }
 
         sessao3.setOnClickListener {
-            MudarTelaSessao()
-
+            MudarTelaSessao(3)
         }
 
         sessao4.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(4)
         }
 
         sessao5.setOnClickListener {
-            MudarTelaSessao()
+            MudarTelaSessao(5)
         }
+
 
         voltar.setOnClickListener() {
             finish()
@@ -55,10 +55,13 @@ class SessionAdmin : Activity() {
             SettingsTela()
         }
     }
-    private fun MudarTelaSessao() {
+
+    private fun MudarTelaSessao(sessao: Int) {
         val telaAdicionar = Intent(this, ListarObrasAdminActivity::class.java)
+        telaAdicionar.putExtra("sessao", sessao)
         startActivity(telaAdicionar)
     }
+
     private fun SettingsTela() {
         val telaAdicionar = Intent(this, SairActivity::class.java)
         startActivity(telaAdicionar)

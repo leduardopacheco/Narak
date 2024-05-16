@@ -1,15 +1,18 @@
 package com.example.obrasacessiveis
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ListarObrasAdminActivity : Activity() {
+    @SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listar_obras_admin)
@@ -32,6 +35,13 @@ class ListarObrasAdminActivity : Activity() {
 
         buscar.setOnClickListener() {
             buscarObraPorTitulo(titulo.text.toString())
+        }
+
+        val sessao = intent.getIntExtra("sessao", -1)
+        if (sessao != -1) {
+            val scanLabel = findViewById<TextView>(R.id.scanLabel)
+            val sessionText = getString(R.string.session, sessao)
+            scanLabel.text = sessionText
         }
     }
     private fun TrocarParaAdicionarObra() {

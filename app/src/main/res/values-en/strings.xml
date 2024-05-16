@@ -12,7 +12,7 @@
     <string name="register">Register</string>
     <string name="search">Search</string>
     <string name="enter_text">Enter text</string>
-    <string name="session">Session *</string>
+    <string name="session">Session %1$d</string>
     <string name="title_hint">Title of the work</string>
     <string name="description_hint">Description of the work</string>
     <string name="author_hint">Author</string>
