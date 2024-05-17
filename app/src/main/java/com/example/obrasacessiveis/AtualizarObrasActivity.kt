@@ -3,26 +3,24 @@ package com.example.obrasacessiveis
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
-import com.google.firebase.firestore.FirebaseFirestore
-import android.net.Uri
-import android.provider.MediaStore
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
 import java.util.*
-
 
 class AtualizarObrasActivity : Activity() {
 
     private val PICK_IMAGE_REQUEST = 1
     private var filePath: Uri? = null
     private var imagemUrlAtual: String? = null
-    private lateinit var id:String
+    private lateinit var id: String
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,16 +35,20 @@ class AtualizarObrasActivity : Activity() {
         val ano = findViewById<EditText>(R.id.yearEditText)
         val autor = findViewById<EditText>(R.id.authorEditText)
         val imageView = findViewById<ImageView>(R.id.imageView)
+
         id = intent.getStringExtra("id") ?: ""
 
-
+        if (id.isEmpty()) {
+            Toast.makeText(this, "ID da obra não foi encontrado", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         val tituloObra = intent.getStringExtra("obra_titulo") ?: ""
         val descricaoObra = intent.getStringExtra("obra_descricao") ?: ""
         val autorObra = intent.getStringExtra("obra_autor") ?: ""
         val anoObra = intent.getStringExtra("obra_ano") ?: ""
         imagemUrlAtual = intent.getStringExtra("obra_imagemUrl")
-
 
         titulo.setText(tituloObra)
         descricao.setText(descricaoObra)
@@ -61,77 +63,77 @@ class AtualizarObrasActivity : Activity() {
             abrirSelecaoDeImagem()
         }
 
-
         ok.setOnClickListener {
-
-            val novaObra = hashMapOf(
-                "titulo" to titulo.text.toString(),
-                "descricao" to descricao.text.toString(),
-                "autor" to autor.text.toString(),
-                "ano" to ano.text.toString(),
-            )
-
-            if (filePath != null) {
-                val storageReference = FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}")
-                storageReference.putFile(filePath!!)
-                    .addOnSuccessListener {
-                        storageReference.downloadUrl.addOnSuccessListener { uri ->
-                            // Adiciona a URL da nova imagem ao documento da obra no Firestore
-                            novaObra["imagemUrl"] = uri.toString()
-
-                            FirebaseFirestore.getInstance().collection("Obras").document(id).update(
-                                novaObra as Map<String, Any>
-                            )
-                                .addOnSuccessListener {
-                                    Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso com nova imagem.")
-                                    setResultAndFinish(RESULT_OK)
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e("AtualizarObrasActivity", "Erro ao atualizar obra com nova imagem", e)
-                                }
-                        }
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("AtualizarObrasActivity", "Erro ao fazer upload da nova imagem: $e")
-                    }
-            } else {
-                // Se não houver nova imagem, apenas atualiza os outros campos da obra
-                FirebaseFirestore.getInstance().collection("Obras").document(id).update(novaObra as Map<String, Any>)
-                    .addOnSuccessListener {
-                        Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso.")
-                        setResultAndFinish(RESULT_OK)
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("AtualizarObrasActivity", "Erro ao atualizar obra", e)
-                    }
-            }
+            atualizarObra(titulo.text.toString(), descricao.text.toString(), autor.text.toString(), ano.text.toString())
         }
-
 
         voltar.setOnClickListener {
             setResultAndFinish(RESULT_CANCELED)
         }
 
         trash.setOnClickListener {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("Obras").whereEqualTo("titulo", tituloObra).get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        db.collection("Obras").document(document.id).delete()
+            deletarObra(tituloObra)
+        }
+    }
+
+    private fun atualizarObra(titulo: String, descricao: String, autor: String, ano: String) {
+        val novaObra = hashMapOf(
+            "titulo" to titulo,
+            "descricao" to descricao,
+            "autor" to autor,
+            "ano" to ano,
+        )
+
+        if (filePath != null) {
+            val storageReference = FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}")
+            storageReference.putFile(filePath!!)
+                .addOnSuccessListener {
+                    storageReference.downloadUrl.addOnSuccessListener { uri ->
+                        novaObra["imagemUrl"] = uri.toString()
+                        FirebaseFirestore.getInstance().collection("Obras").document(id).update(
+                            novaObra as Map<String, Any>
+                        )
                             .addOnSuccessListener {
-                                setResultAndFinish(RESULT_OK)
+                                Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso com nova imagem.")
+                                setResultAndFinish(RESULT_OK, titulo, descricao, autor, ano, uri.toString())
                             }
                             .addOnFailureListener { e ->
-                                Log.e("AtualizarObrasActivity", "Erro ao apagar obra", e)
-                                // Tratar erro, se necessário
+                                Log.e("AtualizarObrasActivity", "Erro ao atualizar obra com nova imagem", e)
                             }
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("AtualizarObrasActivity", "Erro ao buscar obra", e)
-                    // Tratar erro, se necessário
+                    Log.e("AtualizarObrasActivity", "Erro ao fazer upload da nova imagem: $e")
+                }
+        } else {
+            FirebaseFirestore.getInstance().collection("Obras").document(id).update(novaObra as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso.")
+                    setResultAndFinish(RESULT_OK, titulo, descricao, autor, ano, imagemUrlAtual)
+                }
+                .addOnFailureListener { e ->
+                    Log.e("AtualizarObrasActivity", "Erro ao atualizar obra", e)
                 }
         }
+    }
+
+    private fun deletarObra(tituloObra: String) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Obras").whereEqualTo("titulo", tituloObra).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    db.collection("Obras").document(document.id).delete()
+                        .addOnSuccessListener {
+                            setResultAndFinish(RESULT_OK)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("AtualizarObrasActivity", "Erro ao apagar obra", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("AtualizarObrasActivity", "Erro ao buscar obra", e)
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -140,27 +142,23 @@ class AtualizarObrasActivity : Activity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
             filePath = data.data
             try {
-                // Carregue a imagem usando Glide diretamente do Uri
                 Glide.with(this).load(filePath).into(findViewById<ImageView>(R.id.imageView))
-
             } catch (e: Exception) {
                 Log.e("AtualizarObrasActivity", "Erro ao carregar imagem: $e")
-                // Tratar erro, se necessário
             }
         }
     }
 
-
-
-
-    private fun setResultAndFinish(resultCode: Int) {
+    private fun setResultAndFinish(resultCode: Int, titulo: String = "", descricao: String = "", autor: String = "", ano: String = "", imagemUrl: String? = null) {
+        if (resultCode == RESULT_OK) {
+            val intent = Intent(this, ListarObrasAdminActivity::class.java)
+            startActivity(intent)
+        }
         setResult(resultCode)
         finish()
-        // Retorna para ListarObrasActivity após excluir ou cancelar a edição
-        val intent = Intent(this, ListarObrasAdminActivity::class.java)
-        startActivity(intent)
     }
-    // Método adicionado para abrir a seleção de imagem
+
+
     private fun abrirSelecaoDeImagem() {
         val intent = Intent()
         intent.type = "image/*"

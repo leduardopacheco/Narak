@@ -58,7 +58,7 @@ class Session : Activity() {
     }
 
     private fun MudarTelaSessao(sessao: Int) {
-        val telaAdicionar = Intent(this, ListarObrasAdminActivity::class.java)
+        val telaAdicionar = Intent(this, ListarObrasUsuarioActivity::class.java)
         telaAdicionar.putExtra("sessao", sessao)
         startActivity(telaAdicionar)
     }

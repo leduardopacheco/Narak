@@ -5,19 +5,6 @@
     android:background="#9C27B0">
 
     <TextView
-        android:id="@+id/NameApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/searchLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="160dp"
         android:gravity="center"
         android:text="@string/search"
@@ -50,11 +37,14 @@
         android:id="@+id/checkButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="25dp"
+        android:layout_alignStart="@+id/searchEditText"
+        android:layout_alignTop="@+id/searchEditText"
+        android:layout_alignEnd="@+id/searchEditText"
+        android:layout_alignBottom="@+id/searchEditText"
+        android:layout_marginStart="331dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
         android:adjustViewBounds="true"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="fitCenter"
@@ -65,29 +55,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchEditText"
-        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/session"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@id/scanLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="#C0C0C0"
-        android:padding="4dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_below="@+id/scanLabel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_camera" />
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/obrasRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"/>
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/trashButton"
