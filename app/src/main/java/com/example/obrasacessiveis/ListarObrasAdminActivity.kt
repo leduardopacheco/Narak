@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.mediaplayer.VideoViewActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ListarObrasAdminActivity : Activity() {
@@ -31,6 +32,7 @@ class ListarObrasAdminActivity : Activity() {
         setContentView(R.layout.activity_listar_obras_admin)
 
         val addButton = findViewById<ImageButton>(R.id.addButton)
+        val libras = findViewById<ImageButton>(R.id.librasButton)
         val settings = findViewById<ImageButton>(R.id.settingsButton)
         val buscar = findViewById<ImageButton>(R.id.checkButton)
         val titulo = findViewById<EditText>(R.id.searchEditText)
@@ -47,6 +49,11 @@ class ListarObrasAdminActivity : Activity() {
             buscarObraPorTitulo(titulo.text.toString())
         }
 
+        libras.setOnClickListener {
+            abrirVideo()
+        }
+
+
         val sessao = intent.getIntExtra("sessao", -1)
         if (sessao != -1) {
             val scanLabel = findViewById<TextView>(R.id.scanLabel)
@@ -60,6 +67,10 @@ class ListarObrasAdminActivity : Activity() {
         obrasRecyclerView.adapter = obraAdapter
 
         listarObras()
+    }
+    private fun abrirVideo() {
+        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
+        startActivity(telaAdicionar)
     }
 
     private fun TrocarParaAdicionarObra() {

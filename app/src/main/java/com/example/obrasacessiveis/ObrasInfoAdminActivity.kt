@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.example.mediaplayer.VideoViewActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -20,6 +21,7 @@ class ObrasInfoAdminActivity : Activity() {
         val editButton = findViewById<ImageButton>(R.id.editButton)
         val voltar = findViewById<ImageButton>(R.id.voltarButton)
         val titulo = findViewById<TextView>(R.id.titleTextView)
+        val libras = findViewById<ImageButton>(R.id.librasButton)
         val descricao = findViewById<TextView>(R.id.descriptionEditText)
         val autor = findViewById<TextView>(R.id.authorEditText)
         val ano = findViewById<TextView>(R.id.yearEditText)
@@ -59,6 +61,11 @@ class ObrasInfoAdminActivity : Activity() {
         voltar.setOnClickListener {
             finish()
         }
+        libras.setOnClickListener {
+            abrirVideo()
+        }
+
+
 
         editButton.setOnClickListener {
             val intent = Intent(this, AtualizarObrasActivity::class.java)
@@ -70,5 +77,10 @@ class ObrasInfoAdminActivity : Activity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun abrirVideo() {
+        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
+        startActivity(telaAdicionar)
     }
 }

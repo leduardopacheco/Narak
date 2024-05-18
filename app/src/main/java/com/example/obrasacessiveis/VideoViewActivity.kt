@@ -28,7 +28,7 @@ class VideoViewActivity : Activity() {
         // Referência ao vídeo no Firebase Storage
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val videoRef = storageRef.child("videos/teste.mp4")
+        val videoRef = storageRef.child("videos/libra1.mp4")
 
         // Obter a URL do vídeo
         videoRef.downloadUrl.addOnSuccessListener { uri ->

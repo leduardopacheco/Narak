@@ -2,6 +2,8 @@ package com.example.obrasacessiveis
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +23,31 @@ class AtualizarObrasActivity : Activity() {
     private var filePath: Uri? = null
     private var imagemUrlAtual: String? = null
     private lateinit var id: String
+
+    private fun exibirDialogoSair() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Excluir obra")
+        builder.setMessage("Tem certeza que deseja excluir esta obra?")
+        builder.setPositiveButton("Sim") { dialogInterface: DialogInterface, i: Int ->
+            deletarObra()
+        }
+        builder.setNegativeButton("Não") { dialogInterface: DialogInterface, i: Int ->
+            dialogInterface.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deletarObra() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Obras").document(id).delete()
+            .addOnSuccessListener {
+                setResultAndFinish(RESULT_OK)
+            }
+            .addOnFailureListener { e ->
+                Log.e("AtualizarObrasActivity", "Erro ao apagar obra", e)
+            }
+    }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +99,7 @@ class AtualizarObrasActivity : Activity() {
         }
 
         trash.setOnClickListener {
-            deletarObra(tituloObra)
+            exibirDialogoSair()
         }
     }
 

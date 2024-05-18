@@ -41,7 +41,7 @@ class ListarObrasUsuarioActivity : Activity() {
         }
 
         libras.setOnClickListener {
-          teste()
+          abrirVideo()
         }
 
         settings.setOnClickListener {
@@ -63,7 +63,7 @@ class ListarObrasUsuarioActivity : Activity() {
         listarObras()
     }
 
-    private fun teste() {
+    private fun abrirVideo() {
         val telaAdicionar = Intent(this, VideoViewActivity::class.java)
         startActivity(telaAdicionar)
     }
