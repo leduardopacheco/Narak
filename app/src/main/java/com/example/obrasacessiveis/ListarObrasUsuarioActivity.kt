@@ -32,21 +32,26 @@ class ListarObrasUsuarioActivity : Activity() {
         setContentView(R.layout.activity_listar_obras_usuario)
 
         val buscar = findViewById<ImageButton>(R.id.checkButton)
-        val libras = findViewById<ImageButton>(R.id.librasButton)
+//        val audio = findViewById<ImageButton>(R.id.audioButton)
+//        val libras = findViewById<ImageButton>(R.id.librasButton)
         val titulo = findViewById<EditText>(R.id.searchEditText)
-        val settings = findViewById<ImageButton>(R.id.settingsButton)
+//        val settings = findViewById<ImageButton>(R.id.settingsButton)
 
         buscar.setOnClickListener {
             buscarObraPorTitulo(titulo.text.toString())
         }
 
-        libras.setOnClickListener {
-          abrirVideo()
-        }
+//        libras.setOnClickListener {
+//          abrirVideo()
+//        }
 
-        settings.setOnClickListener {
-            trocar()
-        }
+//        audio.setOnClickListener {
+//            abrirAudio()
+//        }
+//
+//        settings.setOnClickListener {
+//            trocar()
+//        }
 
         val sessao = intent.getIntExtra("sessao", -1)
         if (sessao != -1) {
@@ -63,14 +68,18 @@ class ListarObrasUsuarioActivity : Activity() {
         listarObras()
     }
 
-    private fun abrirVideo() {
-        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
-        startActivity(telaAdicionar)
-    }
-    private fun trocar() {
-        val telaAdicionar = Intent(this, SairActivityUser::class.java)
-        startActivity(telaAdicionar)
-    }
+//    private fun abrirAudio() {
+//        val telaAdicionar = Intent(this, AudioPlayerActivity::class.java)
+//        startActivity(telaAdicionar)
+//    }
+//    private fun abrirVideo() {
+//        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
+//        startActivity(telaAdicionar)
+//    }
+//    private fun trocar() {
+//        val telaAdicionar = Intent(this, SairActivityUser::class.java)
+//        startActivity(telaAdicionar)
+//    }
 
     private fun listarObras() {
         val db = FirebaseFirestore.getInstance()

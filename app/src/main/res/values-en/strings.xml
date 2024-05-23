@@ -29,4 +29,6 @@
     <string name="session_3">Session 3</string>
     <string name="session_4">Session 4</string>
     <string name="session_5">Session 5</string>
+    <string name="video_hint">Insert video link</string>
+    <string name="audio_hint">Insert audio link</string>
 </resources>

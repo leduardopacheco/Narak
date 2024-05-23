@@ -32,7 +32,7 @@ class ListarObrasAdminActivity : Activity() {
         setContentView(R.layout.activity_listar_obras_admin)
 
         val addButton = findViewById<ImageButton>(R.id.addButton)
-        val libras = findViewById<ImageButton>(R.id.librasButton)
+//        val libras = findViewById<ImageButton>(R.id.librasButton)
         val settings = findViewById<ImageButton>(R.id.settingsButton)
         val buscar = findViewById<ImageButton>(R.id.checkButton)
         val titulo = findViewById<EditText>(R.id.searchEditText)
@@ -49,9 +49,9 @@ class ListarObrasAdminActivity : Activity() {
             buscarObraPorTitulo(titulo.text.toString())
         }
 
-        libras.setOnClickListener {
-            abrirVideo()
-        }
+//        libras.setOnClickListener {
+//            abrirVideo()
+//        }
 
 
         val sessao = intent.getIntExtra("sessao", -1)
@@ -68,10 +68,10 @@ class ListarObrasAdminActivity : Activity() {
 
         listarObras()
     }
-    private fun abrirVideo() {
-        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
-        startActivity(telaAdicionar)
-    }
+//    private fun abrirVideo() {
+//        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
+//        startActivity(telaAdicionar)
+//    }
 
     private fun TrocarParaAdicionarObra() {
         val telaAdicionar = Intent(this, AdicionarObrasActivity::class.java)

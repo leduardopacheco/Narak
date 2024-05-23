@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.mediaplayer.VideoViewActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class ObrasInfoAdminActivity : Activity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +25,7 @@ class ObrasInfoAdminActivity : Activity() {
         val autor = findViewById<TextView>(R.id.authorEditText)
         val ano = findViewById<TextView>(R.id.yearEditText)
         val imagem = findViewById<ImageView>(R.id.obraImageView)
+        val audioButton = findViewById<ImageButton>(R.id.audioButton)
 
         val id = intent.getStringExtra("id") ?: ""
         val tituloBuscado = intent.getStringExtra("titulo")
@@ -65,7 +65,10 @@ class ObrasInfoAdminActivity : Activity() {
             abrirVideo()
         }
 
-
+        // Abrir o áudio ao clicar no botão
+        audioButton.setOnClickListener {
+            abrirAudio(tituloBuscado)
+        }
 
         editButton.setOnClickListener {
             val intent = Intent(this, AtualizarObrasActivity::class.java)
@@ -76,11 +79,40 @@ class ObrasInfoAdminActivity : Activity() {
             intent.putExtra("obra_ano", anoBuscado)
             startActivity(intent)
         }
-
     }
 
     private fun abrirVideo() {
-        val telaAdicionar = Intent(this, VideoViewActivity::class.java)
-        startActivity(telaAdicionar)
+        val titulo = intent.getStringExtra("titulo")
+
+        // Recuperar a referência do vídeo pelo título da obra no Firestore
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Obras")
+            .whereEqualTo("titulo", titulo)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val videoReference = document.getString("videoUrl")
+
+                    // Verificar se a referência do vídeo não está vazia
+                    if (!videoReference.isNullOrEmpty()) {
+                        val intent = Intent(this, VideoViewActivity::class.java)
+                        // Passar a referência do vídeo como um extra na intenção
+                        intent.putExtra("videoReference", videoReference)
+                        startActivity(intent)
+                    } else {
+                        // Se não houver referência de vídeo para esta obra
+                        // Manipule o caso em que não há vídeo disponível
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Tratar falha ao buscar a referência do vídeo
+            }
+    }
+
+    private fun abrirAudio(tituloObra: String?) {
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        intent.putExtra("titulo", tituloObra)
+        startActivity(intent)
     }
 }

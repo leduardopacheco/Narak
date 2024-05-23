@@ -28,4 +28,6 @@
     <string name="session_3">Sessão 3</string>
     <string name="session_4">Sessão 4</string>
     <string name="session_5">Sessão 5</string>
+    <string name="video_hint">Insira o link do vídeo</string>
+    <string name="audio_hint">Insira o link do áudio</string>
 </resources>

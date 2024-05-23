@@ -1,6 +1,7 @@
 package com.example.mediaplayer
 
 import android.app.Activity
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.VideoView
@@ -25,17 +26,14 @@ class VideoViewActivity : Activity() {
         btnPause = findViewById(R.id.btnPause)
         btnExit = findViewById(R.id.btnExit)
 
-        // Referência ao vídeo no Firebase Storage
-        val storage = Firebase.storage
-        val storageRef = storage.reference
-        val videoRef = storageRef.child("videos/libra1.mp4")
+        // Obter a referência do vídeo do extra da intenção
+        val videoReference = intent.getStringExtra("videoReference")
 
-        // Obter a URL do vídeo
-        videoRef.downloadUrl.addOnSuccessListener { uri ->
-            // Configurando o VideoView com a URL do vídeo
-            videoView.setVideoURI(uri)
-        }.addOnFailureListener {
-            // Lidar com qualquer erro aqui
+        // Verificar se a referência do vídeo não está vazia
+        if (!videoReference.isNullOrEmpty()) {
+            // Configurar o VideoView com a referência do vídeo
+            val videoUri = Uri.parse(videoReference)
+            videoView.setVideoURI(videoUri)
         }
 
         btnPlay.setOnClickListener {

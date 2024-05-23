@@ -95,7 +95,7 @@
         android:layout_toEndOf="@id/yearLabel" />
 
     <ImageButton
-        android:id="@+id/trashButton"
+        android:id="@+id/audioButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentStart="true"

@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -20,8 +21,14 @@ import java.util.*
 class AtualizarObrasActivity : Activity() {
 
     private val PICK_IMAGE_REQUEST = 1
+    private val PICK_VIDEO_REQUEST = 2
+    private val PICK_AUDIO_REQUEST = 3
     private var filePath: Uri? = null
+    private var videoPath: Uri? = null
+    private var audioPath: Uri? = null
     private var imagemUrlAtual: String? = null
+    private var videoUrlAtual: String? = null
+    private var audioUrlAtual: String? = null
     private lateinit var id: String
 
     private fun exibirDialogoSair() {
@@ -62,6 +69,8 @@ class AtualizarObrasActivity : Activity() {
         val ano = findViewById<EditText>(R.id.yearEditText)
         val autor = findViewById<EditText>(R.id.authorEditText)
         val imageView = findViewById<ImageView>(R.id.imageView)
+        val selectVideoButton = findViewById<Button>(R.id.selectVideoButton)
+        val selectAudioButton = findViewById<Button>(R.id.selectAudioButton)
 
         id = intent.getStringExtra("id") ?: ""
 
@@ -76,6 +85,8 @@ class AtualizarObrasActivity : Activity() {
         val autorObra = intent.getStringExtra("obra_autor") ?: ""
         val anoObra = intent.getStringExtra("obra_ano") ?: ""
         imagemUrlAtual = intent.getStringExtra("obra_imagemUrl")
+        videoUrlAtual = intent.getStringExtra("obra_videoUrl")
+        audioUrlAtual = intent.getStringExtra("obra_audioUrl")
 
         titulo.setText(tituloObra)
         descricao.setText(descricaoObra)
@@ -88,6 +99,14 @@ class AtualizarObrasActivity : Activity() {
 
         imageView.setOnClickListener {
             abrirSelecaoDeImagem()
+        }
+
+        selectVideoButton.setOnClickListener {
+            abrirSelecaoDeVideo()
+        }
+
+        selectAudioButton.setOnClickListener {
+            abrirSelecaoDeAudio()
         }
 
         ok.setOnClickListener {
@@ -111,72 +130,104 @@ class AtualizarObrasActivity : Activity() {
             "ano" to ano,
         )
 
+        var uploadCount = 0
+        val totalUploads = 3
+
+        fun checkUploadCompletion() {
+            uploadCount++
+            if (uploadCount == totalUploads) {
+                FirebaseFirestore.getInstance().collection("Obras").document(id).update(novaObra as Map<String, Any>)
+                    .addOnSuccessListener {
+                        Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso.")
+                        setResultAndFinish(RESULT_OK, titulo, descricao, autor, ano, imagemUrlAtual, videoUrlAtual, audioUrlAtual)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("AtualizarObrasActivity", "Erro ao atualizar obra", e)
+                    }
+            }
+        }
+
         if (filePath != null) {
             val storageReference = FirebaseStorage.getInstance().reference.child("images/${UUID.randomUUID()}")
             storageReference.putFile(filePath!!)
                 .addOnSuccessListener {
                     storageReference.downloadUrl.addOnSuccessListener { uri ->
                         novaObra["imagemUrl"] = uri.toString()
-                        FirebaseFirestore.getInstance().collection("Obras").document(id).update(
-                            novaObra as Map<String, Any>
-                        )
-                            .addOnSuccessListener {
-                                Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso com nova imagem.")
-                                setResultAndFinish(RESULT_OK, titulo, descricao, autor, ano, uri.toString())
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("AtualizarObrasActivity", "Erro ao atualizar obra com nova imagem", e)
-                            }
+                        imagemUrlAtual = uri.toString()
+                        checkUploadCompletion()
                     }
                 }
                 .addOnFailureListener { e ->
                     Log.e("AtualizarObrasActivity", "Erro ao fazer upload da nova imagem: $e")
+                    checkUploadCompletion()
                 }
         } else {
-            FirebaseFirestore.getInstance().collection("Obras").document(id).update(novaObra as Map<String, Any>)
+            checkUploadCompletion()
+        }
+
+        if (videoPath != null) {
+            val storageReference = FirebaseStorage.getInstance().reference.child("videos/${UUID.randomUUID()}")
+            storageReference.putFile(videoPath!!)
                 .addOnSuccessListener {
-                    Log.d("AtualizarObrasActivity", "Obra atualizada com sucesso.")
-                    setResultAndFinish(RESULT_OK, titulo, descricao, autor, ano, imagemUrlAtual)
+                    storageReference.downloadUrl.addOnSuccessListener { uri ->
+                        novaObra["videoUrl"] = uri.toString()
+                        videoUrlAtual = uri.toString()
+                        checkUploadCompletion()
+                    }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("AtualizarObrasActivity", "Erro ao atualizar obra", e)
+                    Log.e("AtualizarObrasActivity", "Erro ao fazer upload do novo vídeo: $e")
+                    checkUploadCompletion()
                 }
+        } else {
+            checkUploadCompletion()
         }
-    }
 
-    private fun deletarObra(tituloObra: String) {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Obras").whereEqualTo("titulo", tituloObra).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    db.collection("Obras").document(document.id).delete()
-                        .addOnSuccessListener {
-                            setResultAndFinish(RESULT_OK)
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e("AtualizarObrasActivity", "Erro ao apagar obra", e)
-                        }
+        if (audioPath != null) {
+            val storageReference = FirebaseStorage.getInstance().reference.child("audios/${UUID.randomUUID()}")
+            storageReference.putFile(audioPath!!)
+                .addOnSuccessListener {
+                    storageReference.downloadUrl.addOnSuccessListener { uri ->
+                        novaObra["audioUrl"] = uri.toString()
+                        audioUrlAtual = uri.toString()
+                        checkUploadCompletion()
+                    }
                 }
-            }
-            .addOnFailureListener { e ->
-                Log.e("AtualizarObrasActivity", "Erro ao buscar obra", e)
-            }
+                .addOnFailureListener { e ->
+                    Log.e("AtualizarObrasActivity", "Erro ao fazer upload do novo áudio: $e")
+                    checkUploadCompletion()
+                }
+        } else {
+            checkUploadCompletion()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            filePath = data.data
-            try {
-                Glide.with(this).load(filePath).into(findViewById<ImageView>(R.id.imageView))
-            } catch (e: Exception) {
-                Log.e("AtualizarObrasActivity", "Erro ao carregar imagem: $e")
+        if (resultCode == RESULT_OK && data != null && data.data != null) {
+            when (requestCode) {
+                PICK_IMAGE_REQUEST -> {
+                    filePath = data.data
+                    try {
+                        Glide.with(this).load(filePath).into(findViewById<ImageView>(R.id.imageView))
+                    } catch (e: Exception) {
+                        Log.e("AtualizarObrasActivity", "Erro ao carregar imagem: $e")
+                    }
+                }
+                PICK_VIDEO_REQUEST -> {
+                    videoPath = data.data
+                    Toast.makeText(this, "Vídeo selecionado", Toast.LENGTH_SHORT).show()
+                }
+                PICK_AUDIO_REQUEST -> {
+                    audioPath = data.data
+                    Toast.makeText(this, "Áudio selecionado", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun setResultAndFinish(resultCode: Int, titulo: String = "", descricao: String = "", autor: String = "", ano: String = "", imagemUrl: String? = null) {
+    private fun setResultAndFinish(resultCode: Int, titulo: String = "", descricao: String = "", autor: String = "", ano: String = "", imagemUrl: String? = null, videoUrl: String? = null, audioUrl: String? = null) {
         if (resultCode == RESULT_OK) {
             val intent = Intent(this, ListarObrasAdminActivity::class.java)
             startActivity(intent)
@@ -185,11 +236,24 @@ class AtualizarObrasActivity : Activity() {
         finish()
     }
 
-
     private fun abrirSelecaoDeImagem() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Selecione uma foto"), PICK_IMAGE_REQUEST)
+    }
+
+    private fun abrirSelecaoDeVideo() {
+        val intent = Intent()
+        intent.type = "video/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Selecione um vídeo"), PICK_VIDEO_REQUEST)
+    }
+
+    private fun abrirSelecaoDeAudio() {
+        val intent = Intent()
+        intent.type = "audio/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Selecione um áudio"), PICK_AUDIO_REQUEST)
     }
 }
