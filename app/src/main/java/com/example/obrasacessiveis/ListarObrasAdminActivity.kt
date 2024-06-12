@@ -188,4 +188,3 @@ class ObraAdapter(private val context: Context, private val obras: List<Obra>) :
         val descricaoTextView: TextView = itemView.findViewById(R.id.descricaoTextView)
     }
 }
-
